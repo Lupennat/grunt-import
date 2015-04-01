@@ -12,7 +12,7 @@ String.prototype.__fullTrim=function(){return this.replace(/(?:(?:^|\n)\s+|\s+(?
 
 module.exports = function(grunt) {
 
-  grunt.registerMultiTask('import', '@import - inline file import.', function() {
+  grunt.registerMultiTask('import', 'import - inline file import.', function() {
 
         var path = require('path');
 
@@ -62,7 +62,7 @@ module.exports = function(grunt) {
         {
             var src = grunt.file.read(filepath);
             //var importReg = src.match(/@import ['"](.*)['"]/g);
-            var importReg = src.match(/(?:(?![/*]])[^/* ]|^ *)@import ['"](.*?)['"](?![^*]*?\*\/)/gm);
+            var importReg = src.match(/(?:(?![/*]])[^/* ]|^ *)import ['"](.*?)['"](?![^*]*?\*\/)/gm);
 
             if(importReg && importReg.length)
             {
@@ -77,7 +77,7 @@ module.exports = function(grunt) {
 
                 for(var i in importReg)
                 {
-                    var importpath = importReg[i].replace('@import ','').replace(/"/g,'').replace(/'/g,'');
+                    var importpath = importReg[i].replace('import ','').replace(/"/g,'').replace(/'/g,'');
 
                     if(importpath.indexOf('/')!==0)
                     {
@@ -92,7 +92,7 @@ module.exports = function(grunt) {
                     }
                     else
                     {
-                        grunt.log.warn('@import file "' + importpath + '" not found.');
+                        grunt.log.warn('import file "' + importpath + '" not found.');
                         src = src.split(importReg[i]+';').join('');
                         src = src.split(importReg[i]).join('');
                     }
@@ -105,7 +105,7 @@ module.exports = function(grunt) {
         // Iterate over all src-dest file pairs.
         this.files.forEach(function(f) {
 
-          // Prepend banner + @import + specified files + footer.
+          // Prepend banner + import + specified files + footer.
           var src = banner + f.src.filter(function(filepath) {
 
             // Warn on and remove invalid source files (if nonull was set).
